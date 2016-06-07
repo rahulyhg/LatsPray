@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#DD7200</color>
+    <color name="colorPrimaryDark">#934C00</color>
+    <color name="textColorPrimary">#FAFAFA</color>
+    <color name="colorAccent">#EF6C00</color>
+    <color name="colorHomeBotomAfternoon">#923000</color>
+    <color name="colorHadithDay">#aa3800</color>
+    <color name="colorHadithMorning">#363baa</color>
+    <color name="colorHadithNight">#4b0066</color>
+    <color name="colorHadithEvening">#6b042b</color>
+    <color name="grey_555">#555555</color>
+    <color name="green_transparent">#809E9D24</color>
+    <color name="green_light_border">#76FF03</color>
+    <color name="green">#66BB6A</color>
+    <color name="green_sel">#A5D6A7</color>
+    <color name="red_transparent">#80D84315</color>
+    <color name="red_light_border">#FF3D00</color>
+    <color name="white_transparent">#80FFFFFF</color>
+    <color name="white_light_border">#FFFFFF</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000</color>
+    <color name="black_transparent">#33000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="a">#4b0066</color>
+    <color name="morningrlBottomLayout">#282c8a</color>
+    <color name="afternoonrlBottomLayout">#923000</color>
+    <color name="eveningrlBottomLayout">#4f0420</color>
+    <color name="nightrlBottomLayout">#2d003d</color>
+
+    <color name="morningActionbar">#4D52B1</color>
+    <color name="morningStatusbar">#3D4BAB</color>
+    <color name="afternoonActionbar">#DD7200</color>
+    <color name="afternoonStatusbar">#924B00</color>
+    <color name="eveningActionbar">#9D1246</color>
+    <color name="eveningStatusbar">#870E33</color>
+    <color name="nightActionbar">#380047</color>
+    <color name="nightStatusbar">#2F0039</color>
+</resources>
