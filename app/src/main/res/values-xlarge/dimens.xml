@@ -32,7 +32,8 @@
     <dimen name="dimTex90">180sp</dimen>
     <dimen name="dimTex70">140sp</dimen>
     <dimen name="dimTex12">24sp</dimen>
-    <dimen name="dimTex10">15sp</dimen>
+    <dimen name="dimTex10">20sp</dimen>
+    <dimen name="dimTex8">12sp</dimen>
     <dimen name="dimTex14">28sp</dimen>
     <dimen name="dimTex15">30sp</dimen>
     <dimen name="dimTex16">32sp</dimen>

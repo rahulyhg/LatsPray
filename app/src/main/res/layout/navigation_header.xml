@@ -13,32 +13,15 @@
     <RelativeLayout
         android:id="@+id/rlNavHeaderContent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/ivNavHeaderProfileImage"
-            android:layout_width="@dimen/dim70"
-            android:layout_height="@dimen/dim70"
-            android:src="@mipmap/ic_launcher" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dim10"
-            android:layout_toRightOf="@+id/ivNavHeaderProfileImage"
-            android:orientation="vertical">
+            android:src="@drawable/logo_white"
+            android:layout_centerInParent="true"/>
 
-            <TextView
-                android:id="@+id/tvNavHeaderProfileName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Mr. X"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:textSize="@dimen/dimTex18" />
-
-        </LinearLayout>
     </RelativeLayout>
 
 

@@ -220,9 +220,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:paddingBottom="@dimen/dim5"
-                    android:paddingLeft="@dimen/dim5"
-                    android:paddingTop="@dimen/dim5"
                     android:text="Suhur"
                     android:textColor="@color/textColorPrimary"
                     android:textSize="@dimen/dimTex15"
@@ -232,7 +229,8 @@
                     android:id="@+id/tvSeheriTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/dim5"
+                    android:layout_marginRight="@dimen/dim10"
+                    android:layout_marginLeft="@dimen/dim5"
                     android:text="06:30pm"
                     android:textColor="@color/textColorPrimary"
                     android:textSize="@dimen/dimTex15"
@@ -252,10 +250,9 @@
                     android:id="@+id/tvIftar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/dim5"
+                    android:layout_marginLeft="@dimen/dim10"
                     android:gravity="center"
-                    android:paddingBottom="@dimen/dim5"
-                    android:paddingLeft="@dimen/dim5"
-                    android:paddingTop="@dimen/dim5"
                     android:text="Iftar"
                     android:textColor="@color/textColorPrimary"
                     android:textSize="@dimen/dimTex15"
@@ -265,7 +262,6 @@
                     android:id="@+id/tvIftarTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/dim5"
                     android:text="06:30pm"
                     android:textColor="@color/textColorPrimary"
                     android:textSize="@dimen/dimTex15"
@@ -302,7 +298,7 @@
                 android:text="@string/fajr"
                 android:textColor="#ffffff"
                 android:textStyle="bold"
-                android:textSize="@dimen/dimTex12" />
+                android:textSize="@dimen/dimTex10" />
 
             <TextView
                 android:id="@+id/tvFajrTime"
@@ -311,7 +307,7 @@
                 android:text="10:00am"
                 android:textColor="#ffffff"
                 android:textStyle="bold"
-                android:textSize="@dimen/dimTex10" />
+                android:textSize="@dimen/dimTex8" />
         </LinearLayout>
 
         <LinearLayout
@@ -330,7 +326,7 @@
                 android:text="@string/zuhr"
                 android:textColor="#ffffff"
                 android:textStyle="bold"
-                android:textSize="@dimen/dimTex12" />
+                android:textSize="@dimen/dimTex10" />
 
             <TextView
                 android:id="@+id/tvDohrTime"
@@ -339,7 +335,7 @@
                 android:text="10:00am"
                 android:textStyle="bold"
                 android:textColor="#ffffff"
-                android:textSize="@dimen/dimTex10" />
+                android:textSize="@dimen/dimTex8" />
         </LinearLayout>
 
         <LinearLayout
@@ -358,7 +354,7 @@
                 android:text="@string/asr"
                 android:textColor="#ffffff"
                 android:textStyle="bold"
-                android:textSize="@dimen/dimTex12" />
+                android:textSize="@dimen/dimTex10" />
 
             <TextView
                 android:id="@+id/tvAsrTime"
@@ -367,7 +363,7 @@
                 android:text="05:00pm"
                 android:textColor="#ffffff"
                 android:textStyle="bold"
-                android:textSize="@dimen/dimTex10" />
+                android:textSize="@dimen/dimTex8" />
         </LinearLayout>
 
         <LinearLayout
@@ -395,7 +391,7 @@
                 android:text="06:30pm"
                 android:textColor="#ffffff"
                 android:textStyle="bold"
-                android:textSize="@dimen/dimTex10" />
+                android:textSize="@dimen/dimTex8" />
         </LinearLayout>
 
         <LinearLayout
@@ -413,7 +409,7 @@
                 android:text="@string/isha"
                 android:textColor="#ffffff"
                 android:textStyle="bold"
-                android:textSize="@dimen/dimTex12" />
+                android:textSize="@dimen/dimTex10" />
 
             <TextView
                 android:id="@+id/tvIshaTime"
@@ -422,7 +418,7 @@
                 android:text="08:30pm"
                 android:textColor="#ffffff"
                 android:textStyle="bold"
-                android:textSize="@dimen/dimTex10" />
+                android:textSize="@dimen/dimTex8" />
         </LinearLayout>
 
     </LinearLayout>
@@ -453,16 +449,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvHadit"
             android:layout_marginTop="@dimen/dim5"
-            android:ellipsize="marquee"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:scrollHorizontally="true"
-            android:scrollbars="horizontal"
             android:singleLine="true"
             android:text="Restaurant Name"
             android:textColor="@color/white"
-            android:textSize="@dimen/dimTex16"/>
+            android:textSize="@dimen/dimTex18"/>
 
         <TextView
             android:id="@+id/tvMore"

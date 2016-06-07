@@ -2,7 +2,9 @@ package lets.pray.muslims.utility;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
@@ -138,29 +140,6 @@ public class ApplicationUtils {
         return timeTypeface;
     }
 
-//    public static void showSettingsAlert(final Activity activity, final GPSTracker.SettingNotEnabledCallback settingNotEnabledCallback){
-//        AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
-//        alertDialog.setTitle("GPS is settings");
-//        alertDialog.setMessage("GPS is not enabled. Do you want to go to settings menu?");
-//        alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
-//            public void onClick(DialogInterface dialog,int which) {
-//                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-//                activity.startActivityForResult(intent,GPS_REQUEST_CODE);
-//            }
-//        });
-//        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//            public void onClick(DialogInterface dialog, int which) {
-//                dialog.cancel();
-//                if(!checkPreviousLocation(activity)) {
-//                    activity.finish();
-//                }else{
-//                    settingNotEnabledCallback.settingsNotEnabled();
-//                }
-//            }
-//        });
-//        alertDialog.show();
-//    }
-
     public static boolean checkPreviousLocation(Context context){
         SharedPreferences preferences = context.getSharedPreferences(StaticData.KEY_PREFERENCE,Context.MODE_PRIVATE);
         boolean isPreviousLocation = preferences.getBoolean(StaticData.IS_PREV_LOC, false);
@@ -214,6 +193,18 @@ public class ApplicationUtils {
         ArrayList<Hadith> hadithArrayList = databaseHelper.getHadith();
         Random random = new Random();
         return hadithArrayList.get(random.nextInt(hadithArrayList.size()-1));
+    }
+
+    public static void openHadithDialog(final Activity activity, Hadith hadith) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
+        alertDialog.setTitle("Todays Hadith");
+        alertDialog.setMessage(hadith.getHadithDetails()+"  -  "+hadith.getHadithTitles());
+        alertDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        alertDialog.show();
     }
 
 }

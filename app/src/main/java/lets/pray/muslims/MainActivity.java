@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -38,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     NavigationView nvDrawer;
     RelativeLayout rlNavHeaderContent;
-    TextView tvHeaderProfileName;
 
     int day_state = 0;
 
@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initDrawer() {
         View headerView = nvDrawer.getHeaderView(0);
-        tvHeaderProfileName = (TextView) headerView.findViewById(R.id.tvNavHeaderProfileName);
+       // tvHeaderProfileName = (TextView) headerView.findViewById(R.id.tvNavHeaderProfileName);
         rlNavHeaderContent = (RelativeLayout) headerView.findViewById(R.id.rlNavHeaderContent);
         mDrawerToggle = setupDrawerToggle();
         mDrawerToggle.setDrawerIndicatorEnabled(true);
@@ -139,25 +139,21 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_rateMyapp) {
-            Toast.makeText(this,"RATE MY APP PLEASE",Toast.LENGTH_SHORT).show();
             rateMyApp();
             return true;
         }
         if (id == R.id.action_calendar) {
             showPopup(MainActivity.this);
-            Toast.makeText(this,"THIS IS CALENDAR",Toast.LENGTH_SHORT).show();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
     private void rateMyApp(){
-        Intent sendIntent = new Intent();
-        sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT,
-                "https://play.google.com/store/apps/details?id=lets.pray.muslims");
-        sendIntent.setType("text/plain");
-        startActivity(sendIntent);
+        String appPackageName = "lets.pray.muslims";
+        Uri uri = Uri.parse("market://details?id=" + appPackageName);
+        Intent openIntent = new Intent(Intent.ACTION_VIEW,uri);
+        startActivity(openIntent);
     }
 
     private void showPopup(Activity context) {

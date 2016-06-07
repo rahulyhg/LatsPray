@@ -17,9 +17,10 @@ import android.util.Log;
 
 import java.util.Calendar;
 
-import promo.letspray.R;
-import promo.letspray.data.StaticData;
-import promo.letspray.reciever.AlarmReceiver;
+
+import lets.pray.muslims.R;
+import lets.pray.muslims.data.StaticData;
+import lets.pray.muslims.reciever.AlarmReceiver;
 
 /**
  * Created by wali on 6/2/2016.

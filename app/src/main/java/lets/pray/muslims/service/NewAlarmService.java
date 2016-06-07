@@ -14,10 +14,10 @@ import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import promo.letspray.MainActivity;
-import promo.letspray.R;
-import promo.letspray.data.StaticData;
-import promo.letspray.reciever.AlarmReceiver;
+import lets.pray.muslims.MainActivity;
+import lets.pray.muslims.R;
+import lets.pray.muslims.data.StaticData;
+import lets.pray.muslims.reciever.AlarmReceiver;
 
 public class NewAlarmService extends IntentService {
     public AlarmManager alarmManager;

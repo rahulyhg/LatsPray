@@ -90,6 +90,7 @@ public class HomeFragment extends Fragment {
         setIfterTime();
         setTvSehriTIme();
         setHadith();
+        addClickListeners();
     }
 
     private void initUI(View view) {
@@ -107,7 +108,6 @@ public class HomeFragment extends Fragment {
         tv_more = (TextView) view.findViewById(R.id.tvMore);
         tvIfter = (TextView) view.findViewById(R.id.tvIftar);
         tvSehri = (TextView) view.findViewById(R.id.tvSeheri);
-        tv_more = (TextView) view.findViewById(R.id.tvMore);
         tvIfterTime = (TextView) view.findViewById(R.id.tvIftarTime);
         tvSehriTIme = (TextView) view.findViewById(R.id.tvSeheriTime);
         tvNextPrayer = (TextView) view.findViewById(R.id.tvNextPrayer);
@@ -147,6 +147,16 @@ public class HomeFragment extends Fragment {
         tvSehri.setTypeface(ApplicationUtils.setTimeTypeface(context));
         tvSehriTIme.setTypeface(ApplicationUtils.setTimeTypeface(context));
         tvSecondText.setTypeface(ApplicationUtils.setTimeDateTypeface(context));
+        fajr.setTypeface(ApplicationUtils.setTimeTypeface(context));
+        dohr.setTypeface(ApplicationUtils.setTimeTypeface(context));
+        asr.setTypeface(ApplicationUtils.setTimeTypeface(context));
+        magrib.setTypeface(ApplicationUtils.setTimeTypeface(context));
+        isha.setTypeface(ApplicationUtils.setTimeTypeface(context));
+        tvFajrTime.setTypeface(ApplicationUtils.setTimeTypeface(context));
+        tvDohrTime.setTypeface(ApplicationUtils.setTimeTypeface(context));
+        tvAsrTime.setTypeface(ApplicationUtils.setTimeTypeface(context));
+        tvMaghribTime.setTypeface(ApplicationUtils.setTimeTypeface(context));
+        tvIshaTime.setTypeface(ApplicationUtils.setTimeTypeface(context));
 
         tvHadithFull.setTypeface(ApplicationUtils.setHadithDetailTypeface(context));
         tvNPTR.setTypeface(ApplicationUtils.setHadithDetailTypeface(context));
@@ -241,6 +251,15 @@ public class HomeFragment extends Fragment {
 
     }
 
+    private void addClickListeners() {
+        tv_more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ApplicationUtils.openHadithDialog(getActivity(), momentsHadith);
+            }
+        });
+    }
+
     private void setWeekDay(boolean isNextDay) {
         if (!isNextDay) {
             tvWeekDay.setText(getDay());
@@ -322,10 +341,10 @@ public class HomeFragment extends Fragment {
         return strDate;
     }
 
-    private String getNextDate(){
+    private String getNextDate() {
         Calendar calendar = Calendar.getInstance();
         long today = calendar.getTimeInMillis();
-        long nextDay = today+ RamadanScheduleMaker.DAY_IN_MS;
+        long nextDay = today + RamadanScheduleMaker.DAY_IN_MS;
         calendar.setTimeInMillis(nextDay);
         SimpleDateFormat mdformat = new SimpleDateFormat("dd/MM/yyyy ");
         String strDate = mdformat.format(calendar.getTime());
@@ -347,7 +366,7 @@ public class HomeFragment extends Fragment {
             return StaticData.FRIDAY;
         } else if (today.equalsIgnoreCase(StaticData.FRIDAY)) {
             return StaticData.SATURDAY;
-        }else{
+        } else {
             return today;
         }
     }
@@ -396,7 +415,7 @@ public class HomeFragment extends Fragment {
         tvIfterTime.setText(tvFajrTime.getText().toString());
     }
 
-    private void setHadith(){
+    private void setHadith() {
         momentsHadith = ApplicationUtils.getHadithForMoment(context);
         tvHadithFull.setText(momentsHadith.getHadithDetails());
         Log.e("HADITH_NOW", momentsHadith.getHadithDetails());
