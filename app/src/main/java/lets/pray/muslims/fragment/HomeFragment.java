@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
@@ -397,10 +398,16 @@ public class HomeFragment extends Fragment {
     private void setAlarm(long alarmTime) {
         Intent myIntent = new Intent(context, AlarmReceiver.class);
         myIntent.putExtra(StaticData.ALARM_TIME, alarmTime);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, myIntent, 0);
-
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, myIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        Log.e("NEXT ALARM TIME", alarmTime + "");
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC, alarmTime, pendingIntent);
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) {
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+        } else if(Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+        }else {
+            alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+        }
     }
 
     private void setCurrentPrayer(String prayerName) {
@@ -412,7 +419,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void setTvSehriTIme() {
-        tvIfterTime.setText(tvFajrTime.getText().toString());
+        tvSehriTIme.setText(tvFajrTime.getText().toString());
     }
 
     private void setHadith() {

@@ -11,6 +11,7 @@ import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -28,7 +29,7 @@ public class NewAlarmService extends IntentService {
     private NotificationManager notificationManager;
     private PendingIntent pendingIntent, pendingIntent2;
     private static final String NOTIFICATION_MSG = " waqt coundown started. Get ready for your Salah.";
-    private static final long MINIMUM_DIFF = 20000;
+    private static final long MINIMUM_DIFF = 60000;
 
     public NewAlarmService() {
         super("NewAlarmService");
@@ -44,25 +45,29 @@ public class NewAlarmService extends IntentService {
     protected void onHandleIntent(Intent intent) {
 
         // don't notify if they've played in last 24 hr
-        Log.i(TAG, "Alarm Service has started.");
+        Log.e(TAG, "Alarm Service has started.");
         Context context = this.getApplicationContext();
-        long alarmTime = intent.getLongExtra(StaticData.ALARM_TIME,0);
+        long alarmTime = intent.getLongExtra(StaticData.ALARM_TIME, 0);
         long currentTime = System.currentTimeMillis();
         long diff;
-        if(alarmTime>currentTime){
-            diff = alarmTime-currentTime;
-        }else{
-            diff = currentTime-alarmTime;
+        if (alarmTime > currentTime) {
+            diff = alarmTime - currentTime;
+        } else {
+            diff = currentTime - alarmTime;
         }
 
-        if(diff>=0 &&diff<MINIMUM_DIFF){
+        Log.e("ALARM TIME", alarmTime + "");
+        Log.e("CURRENT TIME", currentTime + "");
+        Log.e("TIME_DIFF", diff + "");
+
+        if (diff >= 0 && diff < MINIMUM_DIFF) {
             generateNotification(context);
-            setNextPrayerAlarm();
         }
+        setNextPrayerAlarm();
 
     }
 
-    private void generateNotification(Context context){
+    private void generateNotification(Context context) {
         notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         Intent mIntent = new Intent(this, MainActivity.class);
@@ -89,14 +94,35 @@ public class NewAlarmService extends IntentService {
         long currAlarm = preferences.getLong(StaticData.ALARM_TIME, 0);
         long nextAlarm = getNextAlarm(currAlarm);
 
-        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        Log.e("CURRENT ALARM TIME", currAlarm + "");
+        Log.e("NEXT ALARM TIME", nextAlarm + "");
+//        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+//
+//        alarmIntent = new Intent(NewAlarmService.this, AlarmReceiver.class);
+//        alarmIntent.putExtra(StaticData.ALARM_TIME,nextAlarm);
+//        pendingIntent2 = PendingIntent.getBroadcast(NewAlarmService.this, 0, alarmIntent, 0);
+//
+//        Log.d(TAG, "alarmserViCE ::" + " new time " + nextAlarm);
+//        alarmManager.setRepeating(AlarmManager.RTC, nextAlarm, 0, pendingIntent2);
+        Intent myIntent = new Intent(this, AlarmReceiver.class);
+        myIntent.putExtra(StaticData.ALARM_TIME, nextAlarm);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) {
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, nextAlarm, pendingIntent);
+        } else if(Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, nextAlarm, pendingIntent);
+        }else {
+            alarmManager.set(AlarmManager.RTC_WAKEUP, nextAlarm, pendingIntent);
+        }
+        saveNextAlarm(nextAlarm);
+    }
 
-        alarmIntent = new Intent(NewAlarmService.this, AlarmReceiver.class);
-        alarmIntent.putExtra(StaticData.ALARM_TIME,nextAlarm);
-        pendingIntent2 = PendingIntent.getBroadcast(NewAlarmService.this, 0, alarmIntent, 0);
-
-        Log.d(TAG, "alarmserViCE ::" + " new time " + nextAlarm);
-        alarmManager.setRepeating(AlarmManager.RTC, nextAlarm, 0, pendingIntent2);
+    private void saveNextAlarm(long alamrTime) {
+        SharedPreferences preferences = getSharedPreferences(StaticData.KEY_PREFERENCE, MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putLong(StaticData.ALARM_TIME, alamrTime);
+        editor.commit();
     }
 
     private long getNextAlarm(long currAlarm) {
@@ -121,7 +147,7 @@ public class NewAlarmService extends IntentService {
         }
     }
 
-    private String getNotificationText(){
+    private String getNotificationText() {
         SharedPreferences preferences = getSharedPreferences(StaticData.KEY_PREFERENCE, MODE_PRIVATE);
         long currAlarm = preferences.getLong(StaticData.ALARM_TIME, 0);
         long fazr = preferences.getLong(StaticData.PRAYER_TIME_FAJR, 0);
@@ -130,17 +156,17 @@ public class NewAlarmService extends IntentService {
         long maghrib = preferences.getLong(StaticData.PRAYER_TIME_MAGRIB, 0);
         long isha = preferences.getLong(StaticData.PRAYER_TIME_ISHA, 0);
         if (currAlarm == fazr) {
-            return "Fazr"+NOTIFICATION_MSG;
+            return "Fazr" + NOTIFICATION_MSG;
         } else if (currAlarm == duhr) {
-            return "Duhr"+NOTIFICATION_MSG;
+            return "Duhr" + NOTIFICATION_MSG;
         } else if (currAlarm == asr) {
-            return "Asr"+NOTIFICATION_MSG;
+            return "Asr" + NOTIFICATION_MSG;
         } else if (currAlarm == maghrib) {
-            return "Maghrib"+NOTIFICATION_MSG;
+            return "Maghrib" + NOTIFICATION_MSG;
         } else if (currAlarm == isha) {
-            return "Isha"+NOTIFICATION_MSG;
+            return "Isha" + NOTIFICATION_MSG;
         } else {
-            return "Fazr"+NOTIFICATION_MSG;
+            return "Fazr" + NOTIFICATION_MSG;
         }
     }
 
