@@ -46,7 +46,7 @@ public class SplashActivity extends AppCompatActivity {
         GPSTracker gpsTracker = new GPSTracker(context, this);
         latitude = gpsTracker.getLatitude();
         longitude = gpsTracker.getLongitude();
-        if (latitude != 0.0 && longitude != 0.0) {
+        if (latitude != 0.0 && longitude != 0.0) {      //Need to handle if location is sent null
             setPrayerTImes(latitude, longitude);
         }
     }

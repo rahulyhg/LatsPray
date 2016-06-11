@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         day_state = ApplicationUtils.getDayState();
         setThemeAccordingToDayState();
         super.onCreate(savedInstanceState);
@@ -61,8 +60,6 @@ public class MainActivity extends AppCompatActivity {
         initFragmentManager();
         setupDrawerContent();
         setDrawerHeaderContent();
-        //setTheme(R.style.MorningTheme);
-
 
     }
 
