@@ -28,7 +28,7 @@ public class NewAlarmService extends IntentService {
     private static final String TAG = "Let's Pray";
     private NotificationManager notificationManager;
     private PendingIntent pendingIntent, pendingIntent2;
-    private static final String NOTIFICATION_MSG = " waqt coundown started. Get ready for your Salah.";
+    private static final String NOTIFICATION_MSG = " waqt coundown started";
     private static final long MINIMUM_DIFF = 60000;
 
     public NewAlarmService() {

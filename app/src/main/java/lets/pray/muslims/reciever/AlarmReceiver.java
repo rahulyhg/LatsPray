@@ -20,9 +20,16 @@ public class AlarmReceiver extends BroadcastReceiver {
         Log.e("Boradcast",alarmTIme+" alarm On received called");
         Log.e("Boradcast",currTIme+" current On received called");
 
-        Intent service1 = new Intent(context, NewAlarmService.class);
-        service1.putExtra(StaticData.ALARM_TIME, alarmTIme);
-        context.startService(service1);
+            Intent service1 = new Intent(context, NewAlarmService.class);
+            service1.putExtra(StaticData.ALARM_TIME, alarmTIme);
+            context.startService(service1);
+
+//        if ("android.intent.action.BOOT_COMPLETED".equals(intent.getAction())) {
+//            Intent service1 = new Intent(context, NewAlarmService.class);
+//            service1.putExtra(StaticData.ALARM_TIME, alarmTIme);
+//            context.startService(service1);
+//        }
+
 
     }
 }
