@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/dim10"
-    tools:context="promo.letspray.fragment.RamadanFragment">
+    tools:context="lets.pray.muslims.fragment.RamadanFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"

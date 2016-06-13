@@ -28,6 +28,8 @@ public class SplashActivity extends AppCompatActivity {
     double latitude;
     double longitude;
 
+    int day_state = 0;
+
     // Database helper
     DatabaseHelper helper = new DatabaseHelper(this);
     Context context;
@@ -38,6 +40,8 @@ public class SplashActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        day_state = ApplicationUtils.getDayState();
+        setThemeAccordingToDayState();
         setContentView(R.layout.activity_splash);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id
                 .coordinatorLayout);
@@ -105,6 +109,22 @@ public class SplashActivity extends AppCompatActivity {
 //        }
 //    };
 
+    private void setThemeAccordingToDayState(){
+        switch (day_state) {
+            case ApplicationUtils.MORNING:
+                setTheme(R.style.MorningTheme);
+                break;
+            case ApplicationUtils.NOON:
+                setTheme(R.style.AfterNoonTheme);
+                break;
+            case ApplicationUtils.EVENING:
+                setTheme(R.style.EveningTheme);
+                break;
+            case ApplicationUtils.NIGHT:
+                setTheme(R.style.NightTheme);
+                break;
+        }
+    }
 
     private void setPrayerTImes(double latitude, double longitude) {
         ApplicationUtils.saveLatLong(latitude, longitude, context);

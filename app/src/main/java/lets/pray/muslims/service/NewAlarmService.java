@@ -56,9 +56,9 @@ public class NewAlarmService extends IntentService {
             diff = currentTime - alarmTime;
         }
 
-        Log.e("ALARM TIME", alarmTime + "");
-        Log.e("CURRENT TIME", currentTime + "");
-        Log.e("TIME_DIFF", diff + "");
+//        Log.e("ALARM TIME", alarmTime + "");
+//        Log.e("CURRENT TIME", currentTime + "");
+//        Log.e("TIME_DIFF", diff + "");
 
         if (diff >= 0 && diff < MINIMUM_DIFF) {
             generateNotification(context);
@@ -96,14 +96,6 @@ public class NewAlarmService extends IntentService {
 
         Log.e("CURRENT ALARM TIME", currAlarm + "");
         Log.e("NEXT ALARM TIME", nextAlarm + "");
-//        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-//
-//        alarmIntent = new Intent(NewAlarmService.this, AlarmReceiver.class);
-//        alarmIntent.putExtra(StaticData.ALARM_TIME,nextAlarm);
-//        pendingIntent2 = PendingIntent.getBroadcast(NewAlarmService.this, 0, alarmIntent, 0);
-//
-//        Log.d(TAG, "alarmserViCE ::" + " new time " + nextAlarm);
-//        alarmManager.setRepeating(AlarmManager.RTC, nextAlarm, 0, pendingIntent2);
         Intent myIntent = new Intent(this, AlarmReceiver.class);
         myIntent.putExtra(StaticData.ALARM_TIME, nextAlarm);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -158,7 +150,7 @@ public class NewAlarmService extends IntentService {
         if (currAlarm == fazr) {
             return "Fazr" + NOTIFICATION_MSG;
         } else if (currAlarm == duhr) {
-            return "Duhr" + NOTIFICATION_MSG;
+            return "Zuhr" + NOTIFICATION_MSG;
         } else if (currAlarm == asr) {
             return "Asr" + NOTIFICATION_MSG;
         } else if (currAlarm == maghrib) {

@@ -5,7 +5,7 @@
     android:id="@+id/dlMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="promo.letspray.MainActivity">
+    tools:context="lets.pray.muslims.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
