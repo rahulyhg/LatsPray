@@ -24,12 +24,6 @@ public class AlarmReceiver extends BroadcastReceiver {
             service1.putExtra(StaticData.ALARM_TIME, alarmTIme);
             context.startService(service1);
 
-//        if ("android.intent.action.BOOT_COMPLETED".equals(intent.getAction())) {
-//            Intent service1 = new Intent(context, NewAlarmService.class);
-//            service1.putExtra(StaticData.ALARM_TIME, alarmTIme);
-//            context.startService(service1);
-//        }
-
 
     }
 }

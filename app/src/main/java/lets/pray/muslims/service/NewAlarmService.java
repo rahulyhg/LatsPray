@@ -28,7 +28,7 @@ public class NewAlarmService extends IntentService {
     private static final String TAG = "Let's Pray";
     private NotificationManager notificationManager;
     private PendingIntent pendingIntent, pendingIntent2;
-    private static final String NOTIFICATION_MSG = " waqt coundown started";
+    private static final String NOTIFICATION_MSG = " waqt countdown started";
     private static final long MINIMUM_DIFF = 60000;
 
     public NewAlarmService() {
@@ -76,7 +76,7 @@ public class NewAlarmService extends IntentService {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
 
         builder.setContentIntent(pendingIntent)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.ic_nav_action_home)
                 .setLargeIcon(BitmapFactory.decodeResource(res, R.mipmap.ic_launcher))
                 .setTicker(res.getString(R.string.notification_title))
                 .setAutoCancel(true)
@@ -96,14 +96,6 @@ public class NewAlarmService extends IntentService {
 
         Log.e("CURRENT ALARM TIME", currAlarm + "");
         Log.e("NEXT ALARM TIME", nextAlarm + "");
-//        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-//
-//        alarmIntent = new Intent(NewAlarmService.this, AlarmReceiver.class);
-//        alarmIntent.putExtra(StaticData.ALARM_TIME,nextAlarm);
-//        pendingIntent2 = PendingIntent.getBroadcast(NewAlarmService.this, 0, alarmIntent, 0);
-//
-//        Log.d(TAG, "alarmserViCE ::" + " new time " + nextAlarm);
-//        alarmManager.setRepeating(AlarmManager.RTC, nextAlarm, 0, pendingIntent2);
         Intent myIntent = new Intent(this, AlarmReceiver.class);
         myIntent.putExtra(StaticData.ALARM_TIME, nextAlarm);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -156,9 +148,9 @@ public class NewAlarmService extends IntentService {
         long maghrib = preferences.getLong(StaticData.PRAYER_TIME_MAGRIB, 0);
         long isha = preferences.getLong(StaticData.PRAYER_TIME_ISHA, 0);
         if (currAlarm == fazr) {
-            return "Fazr" + NOTIFICATION_MSG;
+            return "Fajr" + NOTIFICATION_MSG;
         } else if (currAlarm == duhr) {
-            return "Duhr" + NOTIFICATION_MSG;
+            return "Zuhr" + NOTIFICATION_MSG;
         } else if (currAlarm == asr) {
             return "Asr" + NOTIFICATION_MSG;
         } else if (currAlarm == maghrib) {
@@ -166,7 +158,7 @@ public class NewAlarmService extends IntentService {
         } else if (currAlarm == isha) {
             return "Isha" + NOTIFICATION_MSG;
         } else {
-            return "Fazr" + NOTIFICATION_MSG;
+            return "Fajr" + NOTIFICATION_MSG;
         }
     }
 
