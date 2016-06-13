@@ -26,6 +26,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import lets.pray.muslims.model.RamadanSchedule;
 import lets.pray.muslims.utility.ApplicationUtils;
 import lets.pray.muslims.utility.RamadanScheduleMaker;
 import lets.pray.muslims.data.StaticData;
@@ -47,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         day_state = ApplicationUtils.getDayState();
         setThemeAccordingToDayState();
         super.onCreate(savedInstanceState);
@@ -60,9 +60,7 @@ public class MainActivity extends AppCompatActivity {
         initDrawer();
         initFragmentManager();
         setupDrawerContent();
-        setDrawerHeaderContent();
-        //setTheme(R.style.MorningTheme);
-
+//        setDrawerHeaderContent();
 
     }
 
@@ -80,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(true);
     }
 
-    private void setThemeAccordingToDayState(){
+    private void setThemeAccordingToDayState() {
         switch (day_state) {
             case ApplicationUtils.MORNING:
                 setTheme(R.style.MorningTheme);
@@ -97,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void setActionbarBackground(){
+    private void setActionbarBackground() {
         switch (day_state) {
             case ApplicationUtils.MORNING:
                 toolbar.setBackgroundColor(getResources().getColor(R.color.morningActionbar));
@@ -116,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initDrawer() {
         View headerView = nvDrawer.getHeaderView(0);
-       // tvHeaderProfileName = (TextView) headerView.findViewById(R.id.tvNavHeaderProfileName);
+        // tvHeaderProfileName = (TextView) headerView.findViewById(R.id.tvNavHeaderProfileName);
         rlNavHeaderContent = (RelativeLayout) headerView.findViewById(R.id.rlNavHeaderContent);
         mDrawerToggle = setupDrawerToggle();
         mDrawerToggle.setDrawerIndicatorEnabled(true);
@@ -143,28 +141,29 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.action_calendar) {
-            showPopup(MainActivity.this);
+//            showPopup(MainActivity.this);
+            openRamadanSchedule();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void rateMyApp(){
+    private void rateMyApp() {
         String appPackageName = "lets.pray.muslims";
         Uri uri = Uri.parse("market://details?id=" + appPackageName);
-        Intent openIntent = new Intent(Intent.ACTION_VIEW,uri);
+        Intent openIntent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(openIntent);
     }
 
     private void showPopup(Activity context) {
 
         // Inflate the popup_layout.xml
-        LayoutInflater layoutInflater = (LayoutInflater)getBaseContext()
+        LayoutInflater layoutInflater = (LayoutInflater) getBaseContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View layout = layoutInflater.inflate(R.layout.calendar_main, null,false);
+        View layout = layoutInflater.inflate(R.layout.calendar_main, null, false);
         // Creating the PopupWindow
         final PopupWindow popupWindow = new PopupWindow(
-                layout,800,800);
+                layout, 800, 800);
 
         popupWindow.setContentView(layout);
         popupWindow.setHeight(1000);
@@ -176,9 +175,15 @@ public class MainActivity extends AppCompatActivity {
         CalendarView cv = (CalendarView) layout.findViewById(R.id.calendarView1);
         cv.setBackgroundColor(Color.WHITE);
 
-        popupWindow.showAtLocation(layout, Gravity.TOP,5,170);
+        popupWindow.showAtLocation(layout, Gravity.TOP, 5, 170);
     }
 
+    private void openRamadanSchedule() {
+        RamadanScheduleMaker ramadanScheduleMaker = new RamadanScheduleMaker(getFazrWaqt(), context);
+        fragmentManager.beginTransaction().replace(R.id.flContent, RamadanFragment.newInstance()).commit();
+        nvDrawer.setCheckedItem(R.id.nav_ramadanTimeTable);
+//        navi
+    }
 
 
     private ActionBarDrawerToggle setupDrawerToggle() {
@@ -195,9 +200,6 @@ public class MainActivity extends AppCompatActivity {
         };
     }
 
-    private void setDrawerHeaderContent() {
-    }
-
     private void initFragmentManager() {
         fragmentManager = getSupportFragmentManager();
         openHomeFragment();
@@ -205,6 +207,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void openHomeFragment() {
         fragmentManager.beginTransaction().replace(R.id.flContent, HomeFragment.newInstance()).commit();
+        nvDrawer.setCheckedItem(R.id.nav_home);
     }
 
     private void setupDrawerContent() {
@@ -248,13 +251,13 @@ public class MainActivity extends AppCompatActivity {
             fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
             menuItem.setChecked(true);
             setTitle(menuItem.getTitle());
-        }else{
+        } else {
 
         }
         dlMain.closeDrawers();
     }
 
-    private void shareApp(){
+    private void shareApp() {
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_TEXT,
@@ -263,10 +266,18 @@ public class MainActivity extends AppCompatActivity {
         startActivity(sendIntent);
     }
 
-    private long getFazrWaqt(){
-        SharedPreferences preferences = getSharedPreferences(StaticData.KEY_PREFERENCE,MODE_PRIVATE);
-        long fazrWaqt = preferences.getLong(StaticData.PRAYER_TIME_FAJR,0);
+    private long getFazrWaqt() {
+        SharedPreferences preferences = getSharedPreferences(StaticData.KEY_PREFERENCE, MODE_PRIVATE);
+        long fazrWaqt = preferences.getLong(StaticData.PRAYER_TIME_FAJR, 0);
         return fazrWaqt;
     }
 
+    @Override
+    public void onBackPressed() {
+        if (dlMain.isDrawerOpen(nvDrawer)) {
+            dlMain.closeDrawers();
+        } else {
+            super.onBackPressed();
+        }
+    }
 }

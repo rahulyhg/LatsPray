@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/transparent"
-    tools:context="promo.letspray.fragment.HomeFragment"
+    tools:context="lets.pray.muslims.fragment.HomeFragment"
     android:id="@+id/rlFragmentBg">
 
     <RelativeLayout

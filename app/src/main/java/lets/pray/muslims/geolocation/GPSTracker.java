@@ -247,8 +247,9 @@ public class GPSTracker extends Service implements LocationListener {
 
     private void showSettingsAlert() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
-        alertDialog.setTitle("GPS is settings");
-        alertDialog.setMessage("GPS is not enabled. Do you want to go to settings menu?");
+        alertDialog.setTitle("Location's not available!!");
+        alertDialog.setMessage("This application needs location to calculate Salah times. To continue with Let's Pray press \"Settings\" and enable location.");
+        alertDialog.setCancelable(false);
         alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);

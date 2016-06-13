@@ -56,9 +56,9 @@ public class NewAlarmService extends IntentService {
             diff = currentTime - alarmTime;
         }
 
-        Log.e("ALARM TIME", alarmTime + "");
-        Log.e("CURRENT TIME", currentTime + "");
-        Log.e("TIME_DIFF", diff + "");
+//        Log.e("ALARM TIME", alarmTime + "");
+//        Log.e("CURRENT TIME", currentTime + "");
+//        Log.e("TIME_DIFF", diff + "");
 
         if (diff >= 0 && diff < MINIMUM_DIFF) {
             generateNotification(context);
