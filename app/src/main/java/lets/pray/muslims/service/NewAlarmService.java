@@ -133,7 +133,7 @@ public class NewAlarmService extends IntentService {
         } else if (currAlarm == maghrib) {
             return isha;
         } else if (currAlarm == isha) {
-            return fazr;
+            return fazr+24*60*60*1000;
         } else {
             return fazr;
         }
