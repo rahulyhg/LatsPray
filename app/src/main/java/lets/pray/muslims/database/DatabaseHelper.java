@@ -95,7 +95,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db.insert(PRAYER_TABLE, null, values);
             count++;
         }
-        Log.e("INFO", "One rowinserter " + count);
+//        Log.e("INFO", "One rowinserter " + count);
         db.close();
     }
 
@@ -129,7 +129,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void insertSchedule(ArrayList<RamadanSchedule> schedules) {
-        Log.e("Schedules Size", schedules.size()+" ");
+//        Log.e("Schedules Size", schedules.size() + " ");
         db = this.getWritableDatabase();
         long count = 0;
         ContentValues values = new ContentValues();
@@ -143,7 +143,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 //        long count = db.insert(RAMADAN_SCHEDULE_TABLE, null, values);
 
-        Log.e("INFO", "One rowinserter " + count);
+//        Log.e("INFO", "One rowinserter " + count);
         db.close();
     }
 
@@ -182,7 +182,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db.insert(HADITH_TABLE, null, values);
             count++;
         }
-        Log.e("INFO", "One rowinserted for hadith " + count);
+//        Log.e("INFO", "One rowinserted for hadith " + count);
         db.close();
     }
 

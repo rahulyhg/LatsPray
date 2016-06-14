@@ -150,7 +150,7 @@ public class ApplicationUtils {
         Date date = new Date(time);
         SimpleDateFormat formatter = new SimpleDateFormat("hh:mm a");
         String timeStamp = formatter.format(date);
-        Log.e("TIMESTAMP",timeStamp);
+//        Log.e("TIMESTAMP",timeStamp);
         return timeStamp;
     }
 
@@ -167,6 +167,13 @@ public class ApplicationUtils {
         editor.putString(StaticData.PREV_LATTITUDE, lat+"");
         editor.putString(StaticData.PREV_LONGITUDE, lon+"");
         editor.commit();
+    }
+
+    public static double getDataFromPreference(Context context, String key){
+        SharedPreferences preferences = context.getSharedPreferences(StaticData.KEY_PREFERENCE, Context.MODE_PRIVATE);
+        String data = preferences.getString(key,"0.0");
+        double value = Double.parseDouble(data);
+        return value;
     }
 
     public static void saveHadith(DatabaseHelper helper, Context context){

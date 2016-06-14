@@ -191,7 +191,7 @@ public class HomeFragment extends Fragment {
     private void setNextPrayerTime() {
         Calendar calendar = Calendar.getInstance();
         long currentTimeMs = calendar.getTimeInMillis();
-        Log.e("CurrentTime", currentTimeMs + "");
+//        Log.e("CurrentTime", currentTimeMs + "");
         if (currentTimeMs < fazrWaqtMs) {
             setCurrentPrayer("Fajr");
             setDrawableGreenCircle(fajr_layout);
@@ -291,33 +291,33 @@ public class HomeFragment extends Fragment {
             if (i == 0) {
                 tvFajrTime.setText(prayers.get(i).getPrayerTime().toString());
                 fazrWaqtMs = ApplicationUtils.getPrayerTimeInMs(prayers.get(i).getPrayerTime().toString());
-                Log.e("Fajr In Ms", fazrWaqtMs + "");
+//                Log.e("Fajr In Ms", fazrWaqtMs + "");
             }
             if (i == 1) {
                 sunriseMs = ApplicationUtils.getPrayerTimeInMs(prayers.get(i).getPrayerTime().toString());
-                Log.e("Sunruse In Ms", sunriseMs + "");
+//                Log.e("Sunruse In Ms", sunriseMs + "");
             }
             if (i == 2) {
                 tvDohrTime.setText(prayers.get(i).getPrayerTime().toString());
                 dohrWaqtMs = ApplicationUtils.getPrayerTimeInMs(prayers.get(i).getPrayerTime().toString());
-                Log.e("Dohr In Ms", dohrWaqtMs + "");
+//                Log.e("Dohr In Ms", dohrWaqtMs + "");
             }
             if (i == 3) {
                 tvAsrTime.setText(prayers.get(i).getPrayerTime().toString());
                 asrWaqtMs = ApplicationUtils.getPrayerTimeInMs(prayers.get(i).getPrayerTime().toString());
-                Log.e("Asr In Ms", asrWaqtMs + "");
+//                Log.e("Asr In Ms", asrWaqtMs + "");
             }
             if (i == 4) {
                 tvMaghribTime.setText(prayers.get(i).getPrayerTime().toString());
                 maghribWaqtMs = ApplicationUtils.getPrayerTimeInMs(prayers.get(i).getPrayerTime().toString());
-                Log.e("Maghrib In Ms", maghribWaqtMs + "");
+//                Log.e("Maghrib In Ms", maghribWaqtMs + "");
                 maghribEnd = maghribWaqtMs + 1000 * 60 * 45;
-                Log.e("Maghrib End", maghribEnd + "");
+//                Log.e("Maghrib End", maghribEnd + "");
             }
             if (i == 5) {
                 tvIshaTime.setText(prayers.get(i).getPrayerTime().toString());
                 ishaWaqtMs = ApplicationUtils.getPrayerTimeInMs(prayers.get(i).getPrayerTime().toString());
-                Log.e("Isha In Ms", ishaWaqtMs + "");
+//                Log.e("Isha In Ms", ishaWaqtMs + "");
             }
         }
         saveAlarm(fazrWaqtMs, dohrWaqtMs, asrWaqtMs, maghribWaqtMs, ishaWaqtMs);
@@ -325,14 +325,21 @@ public class HomeFragment extends Fragment {
     }
 
     private void saveAlarm(long alarmTimeFajr, long alarmTimeDuhr, long alarmTimeAsr, long alarmTimeMagrib, long alarmTimeIsha) {
-        SharedPreferences preferences = context.getSharedPreferences(StaticData.KEY_PREFERENCE, context.MODE_PRIVATE);
+        SharedPreferences preferences = context.getSharedPreferences(StaticData.KEY_PREFERENCE, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putLong(StaticData.PRAYER_TIME_FAJR, alarmTimeFajr);
         editor.putLong(StaticData.PRAYER_TIME_DUHR, alarmTimeDuhr);
         editor.putLong(StaticData.PRAYER_TIME_ASR, alarmTimeAsr);
         editor.putLong(StaticData.PRAYER_TIME_MAGRIB, alarmTimeMagrib);
         editor.putLong(StaticData.PRAYER_TIME_ISHA, alarmTimeIsha);
+        editor.putLong(StaticData.NEW_DAY, getNewDay());
         editor.commit();
+    }
+
+    private long getNewDay(){
+        setDayEnd();
+        long newDay = dayEnd+StaticData.TEN_MINUTE;
+        return newDay;
     }
 
     private String getDate() {
@@ -385,7 +392,7 @@ public class HomeFragment extends Fragment {
 
         SharedPreferences preferences = context.getSharedPreferences(StaticData.KEY_PREFERENCE, context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        Log.e("NEXT PRAYER TIME", alarmTime + "");
+//        Log.e("NEXT PRAYER TIME", alarmTime + "");
         boolean isAlarm = preferences.getBoolean(StaticData.IS_ALARMED, false);
         if (!isAlarm) {
             setAlarm(alarmTime);
@@ -399,7 +406,7 @@ public class HomeFragment extends Fragment {
         Intent myIntent = new Intent(context, AlarmReceiver.class);
         myIntent.putExtra(StaticData.ALARM_TIME, alarmTime);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, myIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-        Log.e("NEXT ALARM TIME", alarmTime + "");
+//        Log.e("NEXT ALARM TIME", alarmTime + "");
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) {
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
@@ -425,11 +432,11 @@ public class HomeFragment extends Fragment {
     private void setHadith() {
         momentsHadith = ApplicationUtils.getHadithForMoment(context);
         tvHadithFull.setText(momentsHadith.getHadithDetails());
-        Log.e("HADITH_NOW", momentsHadith.getHadithDetails());
+//        Log.e("HADITH_NOW", momentsHadith.getHadithDetails());
     }
 
     private void setCountDown(long waqt) {
-        Log.e("Countdown", "Begin");
+//        Log.e("Countdown", "Begin");
         CounterClass timer = new CounterClass(waqt,
                 1000, context);
         timer.start();
@@ -442,7 +449,7 @@ public class HomeFragment extends Fragment {
         Date postDate = ApplicationUtils.formatDate(dateString, dtFormat);
         calendar.setTime(postDate);
         dayEnd = calendar.getTimeInMillis();
-        Log.e("DayEnd", dayEnd + "");
+//        Log.e("DayEnd", dayEnd + "");
     }
 
     public class CounterClass extends CountDownTimer {

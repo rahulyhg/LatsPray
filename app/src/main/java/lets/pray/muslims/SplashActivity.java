@@ -128,8 +128,8 @@ public class SplashActivity extends AppCompatActivity {
 
     private void setPrayerTImes(double latitude, double longitude) {
         ApplicationUtils.saveLatLong(latitude, longitude, context);
-        Log.e("Latitude", latitude + "");
-        Log.e("Longitude", longitude + "");
+//        Log.e("Latitude", latitude + "");
+//        Log.e("Longitude", longitude + "");
         double timezone = (Calendar.getInstance().getTimeZone()
                 .getOffset(Calendar.getInstance().getTimeInMillis()))
                 / (1000 * 60 * 60);
@@ -155,7 +155,7 @@ public class SplashActivity extends AppCompatActivity {
 
             //Add Prayer time in Database
             if (i != 4) {
-                Log.e("Prayer Time", prayerNames.get(i).toString() + " " + prayerTimes.get(i).toString());
+//                Log.e("Prayer Time", prayerNames.get(i).toString() + " " + prayerTimes.get(i).toString());
                 Prayer prayer = new Prayer();
                 prayer.setPrayerName((String) prayerNames.get(i));
                 prayer.setPrayerTime((String) prayerTimes.get(i));

@@ -11,6 +11,7 @@ public class StaticData {
     public static final String PRAYER_TIME_ASR = "prayer_time_asr";
     public static final String PRAYER_TIME_MAGRIB = "prayer_time_magrib";
     public static final String PRAYER_TIME_ISHA = "prayer_time_isha";
+    public static final String NEW_DAY = "new_day";
     public static final String NEXT_PRAYER_TIME = "next_prayer_time";
     public static final String IS_ALARM_TIME = "is_alarm_time";
     public static final String ALARM_TIME = "alarm_time";
@@ -59,5 +60,8 @@ public class StaticData {
     public static final String WEDNESDAY = "Wednesday";
     public static final String THURSDAY = "Thursday";
     public static final String FRIDAY = "Friday";
+
+    public static final long FIVE_HOUR = 5*60*60*1000;
+    public static final long TEN_MINUTE = 10*60*1000;
 
 }

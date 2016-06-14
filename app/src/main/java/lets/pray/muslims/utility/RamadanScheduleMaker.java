@@ -97,8 +97,8 @@ public class RamadanScheduleMaker {
     }
 
     private void startGenerator() {
-        Log.e("RAMADAN_SCHEDULE", "Suhur: " + suhurHour + ":" + suhurMin + " Iftar: " + iftarHour + TIME_SEPERATOR + iftarMin +
-                " Date: " + day + DATE_SEPERATOR + month + DATE_SEPERATOR + year);
+//        Log.e("RAMADAN_SCHEDULE", "Suhur: " + suhurHour + ":" + suhurMin + " Iftar: " + iftarHour + TIME_SEPERATOR + iftarMin +
+//                " Date: " + day + DATE_SEPERATOR + month + DATE_SEPERATOR + year);
         ArrayList<RamadanSchedule> ramadanSchedules = new ArrayList<>();
         for (int i=1; i<31; i++){
             RamadanSchedule ramadanSchedule = new RamadanSchedule();
