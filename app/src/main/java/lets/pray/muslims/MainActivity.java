@@ -46,6 +46,10 @@ public class MainActivity extends AppCompatActivity {
     FragmentManager fragmentManager;
     Context context;
 
+    /**
+     *  Need to start implementing prayer tracking system from now on!!
+     *  **/
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         day_state = ApplicationUtils.getDayState();
