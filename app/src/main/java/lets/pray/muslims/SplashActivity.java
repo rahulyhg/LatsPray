@@ -155,7 +155,7 @@ public class SplashActivity extends AppCompatActivity {
 
             //Add Prayer time in Database
             if (i != 4) {
-//                Log.e("Prayer Time", prayerNames.get(i).toString() + " " + prayerTimes.get(i).toString());
+                Log.e("Prayer Time", prayerNames.get(i).toString() + " " + prayerTimes.get(i).toString());
                 Prayer prayer = new Prayer();
                 prayer.setPrayerName((String) prayerNames.get(i));
                 prayer.setPrayerTime((String) prayerTimes.get(i));

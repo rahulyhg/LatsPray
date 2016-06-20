@@ -192,6 +192,7 @@ public class HomeFragment extends Fragment {
         Calendar calendar = Calendar.getInstance();
         long currentTimeMs = calendar.getTimeInMillis();
 //        Log.e("CurrentTime", currentTimeMs + "");
+
         if (currentTimeMs < fazrWaqtMs) {
             setCurrentPrayer("Fajr");
             setDrawableGreenCircle(fajr_layout);
@@ -203,7 +204,7 @@ public class HomeFragment extends Fragment {
             setCurrentPrayer("Fajr");
             setDrawableGreenCircle(fajr_layout);
             setDrawableWhiteCircle(duhur_layout, asr_layout, maghrib_layout, isha_layout);
-            setNextPrayer("Fazr", tvFajrTime.getText().toString(), dohrWaqtMs);
+            setNextPrayer("Zuhr", tvDohrTime.getText().toString(), dohrWaqtMs);
             setCountDown(sunriseMs - currentTimeMs);
             setWeekDay(false);
         } else if (currentTimeMs >= sunriseMs && currentTimeMs < dohrWaqtMs) {
@@ -248,8 +249,45 @@ public class HomeFragment extends Fragment {
             setNextPrayer("Fazr", tvFajrTime.getText().toString(), fazrWaqtMs);
             setCountDown(dayEnd - currentTimeMs);
             setWeekDay(true);
+        }else if(currentTimeMs>dayEnd){
+            updatePrayerTimes();
+            setNextPrayerTime();
         }
 
+
+    }
+    public void updatePrayerTimes(){
+        DatabaseHelper databaseHelper = new DatabaseHelper(context);
+        ArrayList<Prayer> prayers = databaseHelper.getPrayer();
+        for (int i = 0; i < prayers.size(); i++) {
+            if (i == 0) {
+                fazrWaqtMs = ApplicationUtils.getPrayerTimeInMs(prayers.get(i).getPrayerTime().toString());
+//                Log.e("Fajr In Ms", fazrWaqtMs + "");
+            }
+            if (i == 1) {
+                sunriseMs = ApplicationUtils.getPrayerTimeInMs(prayers.get(i).getPrayerTime().toString());
+//                Log.e("Sunruse In Ms", sunriseMs + "");
+            }
+            if (i == 2) {
+                dohrWaqtMs = ApplicationUtils.getPrayerTimeInMs(prayers.get(i).getPrayerTime().toString());
+//                Log.e("Dohr In Ms", dohrWaqtMs + "");
+            }
+            if (i == 3) {
+                asrWaqtMs = ApplicationUtils.getPrayerTimeInMs(prayers.get(i).getPrayerTime().toString());
+//                Log.e("Asr In Ms", asrWaqtMs + "");
+            }
+            if (i == 4) {
+                maghribWaqtMs = ApplicationUtils.getPrayerTimeInMs(prayers.get(i).getPrayerTime().toString());
+//                Log.e("Maghrib In Ms", maghribWaqtMs + "");
+                maghribEnd = maghribWaqtMs + 1000 * 60 * 45;
+//                Log.e("Maghrib End", maghribEnd + "");
+            }
+            if (i == 5) {
+                ishaWaqtMs = ApplicationUtils.getPrayerTimeInMs(prayers.get(i).getPrayerTime().toString());
+//                Log.e("Isha In Ms", ishaWaqtMs + "");
+            }
+        }
+        saveAlarm(fazrWaqtMs, dohrWaqtMs, asrWaqtMs, maghribWaqtMs, ishaWaqtMs);
     }
 
     private void addClickListeners() {
@@ -300,12 +338,12 @@ public class HomeFragment extends Fragment {
             if (i == 2) {
                 tvDohrTime.setText(prayers.get(i).getPrayerTime().toString());
                 dohrWaqtMs = ApplicationUtils.getPrayerTimeInMs(prayers.get(i).getPrayerTime().toString());
-//                Log.e("Dohr In Ms", dohrWaqtMs + "");
+                Log.e("Dohr In Ms", dohrWaqtMs + "");
             }
             if (i == 3) {
                 tvAsrTime.setText(prayers.get(i).getPrayerTime().toString());
                 asrWaqtMs = ApplicationUtils.getPrayerTimeInMs(prayers.get(i).getPrayerTime().toString());
-//                Log.e("Asr In Ms", asrWaqtMs + "");
+                Log.e("Asr In Ms", asrWaqtMs + "");
             }
             if (i == 4) {
                 tvMaghribTime.setText(prayers.get(i).getPrayerTime().toString());
@@ -449,7 +487,7 @@ public class HomeFragment extends Fragment {
         Date postDate = ApplicationUtils.formatDate(dateString, dtFormat);
         calendar.setTime(postDate);
         dayEnd = calendar.getTimeInMillis();
-//        Log.e("DayEnd", dayEnd + "");
+        Log.e("DayEnd", dayEnd + "");
     }
 
     public class CounterClass extends CountDownTimer {

@@ -130,7 +130,7 @@ public class RamadanScheduleMaker {
                 iftarMin = 0;
             }
         }
-        String timeStamp = String.format("%02d:%02d AM",iftarHour, iftarMin);
+        String timeStamp = String.format("%02d:%02d PM",iftarHour, iftarMin);
         return timeStamp;
     }
 

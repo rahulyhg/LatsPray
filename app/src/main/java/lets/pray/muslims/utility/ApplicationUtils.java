@@ -95,10 +95,11 @@ public class ApplicationUtils {
     }
 
     public static long getPrayerTimeInMs(String time) {
-        time = modifyTime(time);
+  //      time = modifyTime(time);
+        Log.e("ModifyTime",time+"");
         Calendar calendar = Calendar.getInstance();
-        String dateString = calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DAY_OF_MONTH) + " " + time.substring(0, 5);
-        SimpleDateFormat dtFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        String dateString = calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DAY_OF_MONTH) + " " + time;
+        SimpleDateFormat dtFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
         Date postDate = formatDate(dateString, dtFormat);
         calendar.setTime(postDate);
         return calendar.getTimeInMillis();
@@ -110,8 +111,12 @@ public class ApplicationUtils {
         if (ampm.equalsIgnoreCase("am")) {
             return time;
         } else {
-            hour = hour + 12;
-            return hour + ":" + time.substring(3);
+            if(hour == 12){
+                return time;
+            }else{
+                hour = hour + 12;
+                return hour + ":" + time.substring(3);
+            }
         }
     }
 
