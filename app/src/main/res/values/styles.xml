@@ -115,4 +115,8 @@
            colorControlHighlight and colorSwitchThumbNormal. -->
     </style>
 
+    <style name="dialog_animation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_left</item>
+    </style>
+
 </resources>

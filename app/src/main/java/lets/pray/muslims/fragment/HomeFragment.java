@@ -47,6 +47,8 @@ public class HomeFragment extends Fragment {
     RelativeLayout rlFragmentBg, rlBottomLayout;
 
     long fazrWaqtMs, sunriseMs, dohrWaqtMs, asrWaqtMs, maghribWaqtMs, maghribEnd, ishaWaqtMs, dayEnd;
+    long fazrWaqtMsFifteen, dohrWaqtMsThirty, asrWaqtMsThirty, maghribWaqtMsFifteen, ishaWaqtMsThirteen, TenPM;
+    long fazrWaqtMsLast, dohrWaqtMsLast, asrWaqtMsLast, maghribWaqtMsLast, ishaWaqtMsLast;
     Context context;
 
     int day_state = 0;
@@ -85,8 +87,8 @@ public class HomeFragment extends Fragment {
         initUI(view);
         setBackgroundNdBarColor();
         setTypeface();
-        setPrayerTime();
         setDayEnd();
+        setPrayerTime();
         setNextPrayerTime();
         setIfterTime();
         setTvSehriTIme();
@@ -287,7 +289,7 @@ public class HomeFragment extends Fragment {
 //                Log.e("Isha In Ms", ishaWaqtMs + "");
             }
         }
-        saveAlarm(fazrWaqtMs, dohrWaqtMs, asrWaqtMs, maghribWaqtMs, ishaWaqtMs);
+        saveAlarm(fazrWaqtMs,sunriseMs, dohrWaqtMs, asrWaqtMs, maghribWaqtMs, ishaWaqtMs);
     }
 
     private void addClickListeners() {
@@ -329,6 +331,7 @@ public class HomeFragment extends Fragment {
             if (i == 0) {
                 tvFajrTime.setText(prayers.get(i).getPrayerTime().toString());
                 fazrWaqtMs = ApplicationUtils.getPrayerTimeInMs(prayers.get(i).getPrayerTime().toString());
+                fazrWaqtMsFifteen = fazrWaqtMs+StaticData.FIFTEEN_MINUTE;
 //                Log.e("Fajr In Ms", fazrWaqtMs + "");
             }
             if (i == 1) {
@@ -338,38 +341,81 @@ public class HomeFragment extends Fragment {
             if (i == 2) {
                 tvDohrTime.setText(prayers.get(i).getPrayerTime().toString());
                 dohrWaqtMs = ApplicationUtils.getPrayerTimeInMs(prayers.get(i).getPrayerTime().toString());
+                dohrWaqtMsThirty = dohrWaqtMs+StaticData.THIRTY_MINUTE;
                 Log.e("Dohr In Ms", dohrWaqtMs + "");
             }
             if (i == 3) {
                 tvAsrTime.setText(prayers.get(i).getPrayerTime().toString());
                 asrWaqtMs = ApplicationUtils.getPrayerTimeInMs(prayers.get(i).getPrayerTime().toString());
+                asrWaqtMsThirty = asrWaqtMs+StaticData.THIRTY_MINUTE;
                 Log.e("Asr In Ms", asrWaqtMs + "");
             }
             if (i == 4) {
                 tvMaghribTime.setText(prayers.get(i).getPrayerTime().toString());
                 maghribWaqtMs = ApplicationUtils.getPrayerTimeInMs(prayers.get(i).getPrayerTime().toString());
 //                Log.e("Maghrib In Ms", maghribWaqtMs + "");
+                maghribWaqtMsFifteen=maghribWaqtMs+StaticData.FIFTEEN_MINUTE;
+//                Log.e("maghribWaqtMsFifteen", maghribWaqtMsFifteen+"");
                 maghribEnd = maghribWaqtMs + 1000 * 60 * 45;
 //                Log.e("Maghrib End", maghribEnd + "");
             }
             if (i == 5) {
                 tvIshaTime.setText(prayers.get(i).getPrayerTime().toString());
                 ishaWaqtMs = ApplicationUtils.getPrayerTimeInMs(prayers.get(i).getPrayerTime().toString());
+                ishaWaqtMsThirteen=ishaWaqtMs+StaticData.THIRTY_MINUTE;
 //                Log.e("Isha In Ms", ishaWaqtMs + "");
             }
         }
-        saveAlarm(fazrWaqtMs, dohrWaqtMs, asrWaqtMs, maghribWaqtMs, ishaWaqtMs);
+        fazrWaqtMsLast=(sunriseMs-StaticData.TEN_MINUTE);
+        Log.e("Fajr waqt LAST In Ms", fazrWaqtMsLast + "");
+        dohrWaqtMsLast=(asrWaqtMs-StaticData.TEN_MINUTE);
+        Log.e("Duhr waqt LAST In Ms", dohrWaqtMsLast + "");
+        asrWaqtMsLast=(maghribWaqtMs-StaticData.TEN_MINUTE);
+        Log.e("Asr waqt LAST In Ms", asrWaqtMsLast + "");
+        maghribWaqtMsLast=(maghribEnd-StaticData.TEN_MINUTE);
+        Log.e("Maghrib waqt LAST In Ms", maghribWaqtMsLast + "");
+        ishaWaqtMsLast=(dayEnd-StaticData.TEN_MINUTE);
+        Log.e("Isha waqt LAST In Ms", ishaWaqtMsLast + "");
+
+        saveAlarm(fazrWaqtMs, sunriseMs, dohrWaqtMs, asrWaqtMs, maghribWaqtMs, ishaWaqtMs);
+        saveAlarmPlus(fazrWaqtMsFifteen, dohrWaqtMsThirty, asrWaqtMsThirty, maghribWaqtMsFifteen, ishaWaqtMsThirteen);
+        saveAlarmMinus(fazrWaqtMsLast, dohrWaqtMsLast, asrWaqtMsLast, maghribWaqtMsLast, ishaWaqtMsLast);
 
     }
 
-    private void saveAlarm(long alarmTimeFajr, long alarmTimeDuhr, long alarmTimeAsr, long alarmTimeMagrib, long alarmTimeIsha) {
+    private void saveAlarm(long alarmTimeFajr,long sunrise, long alarmTimeDuhr, long alarmTimeAsr, long alarmTimeMagrib, long alarmTimeIsha) {
         SharedPreferences preferences = context.getSharedPreferences(StaticData.KEY_PREFERENCE, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putLong(StaticData.PRAYER_TIME_FAJR, alarmTimeFajr);
+        editor.putLong(StaticData.SUNRISE_TIME, sunrise);
         editor.putLong(StaticData.PRAYER_TIME_DUHR, alarmTimeDuhr);
         editor.putLong(StaticData.PRAYER_TIME_ASR, alarmTimeAsr);
         editor.putLong(StaticData.PRAYER_TIME_MAGRIB, alarmTimeMagrib);
         editor.putLong(StaticData.PRAYER_TIME_ISHA, alarmTimeIsha);
+        editor.putLong(StaticData.NEW_DAY, getNewDay());
+        editor.commit();
+    }
+
+    private void saveAlarmPlus(long alarmTimeFajrFifteen, long alarmTimeDuhrThirty, long alarmTimeAsrThirty, long alarmTimeMagribFifteen, long alarmTimeIshaThirty) {
+        SharedPreferences preferences = context.getSharedPreferences(StaticData.KEY_PREFERENCE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putLong(StaticData.PRAYER_TIME_FAJR_FIFTEEN, alarmTimeFajrFifteen);
+        editor.putLong(StaticData.PRAYER_TIME_DUHR_THIRTY, alarmTimeDuhrThirty);
+        editor.putLong(StaticData.PRAYER_TIME_ASR_THIRTY, alarmTimeAsrThirty);
+        editor.putLong(StaticData.PRAYER_TIME_MAGRIB_FIFTEEN, alarmTimeMagribFifteen);
+        editor.putLong(StaticData.PRAYER_TIME_ISHA_THIRTY, alarmTimeIshaThirty);
+        editor.putLong(StaticData.NEW_DAY, getNewDay());
+        editor.commit();
+    }
+
+    private void saveAlarmMinus(long alarmTimeFajrLast, long alarmTimeDuhrLast, long alarmTimeAsrLast, long alarmTimeMagribLast, long alarmTimeIshaLast) {
+        SharedPreferences preferences = context.getSharedPreferences(StaticData.KEY_PREFERENCE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putLong(StaticData.PRAYER_TIME_FAJR_LAST, alarmTimeFajrLast);
+        editor.putLong(StaticData.PRAYER_TIME_DUHR_LAST, alarmTimeDuhrLast);
+        editor.putLong(StaticData.PRAYER_TIME_ASR_LAST, alarmTimeAsrLast);
+        editor.putLong(StaticData.PRAYER_TIME_MAGRIB_LAST, alarmTimeMagribLast);
+        editor.putLong(StaticData.PRAYER_TIME_ISHA_LAST, alarmTimeIshaLast);
         editor.putLong(StaticData.NEW_DAY, getNewDay());
         editor.commit();
     }
@@ -487,7 +533,15 @@ public class HomeFragment extends Fragment {
         Date postDate = ApplicationUtils.formatDate(dateString, dtFormat);
         calendar.setTime(postDate);
         dayEnd = calendar.getTimeInMillis();
+        saveDayend(dayEnd);
         Log.e("DayEnd", dayEnd + "");
+    }
+
+    public void saveDayend(long dayEnd){
+        SharedPreferences preferences = context.getSharedPreferences(StaticData.KEY_PREFERENCE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putLong(StaticData.DAY_END,dayEnd);
+        editor.commit();
     }
 
     public class CounterClass extends CountDownTimer {

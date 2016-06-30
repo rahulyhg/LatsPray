@@ -5,13 +5,29 @@ package lets.pray.muslims.data;
  */
 public class StaticData {
     public static final String KEY_PREFERENCE = "appPreference";
-    public static final String KEY_FIRSTTIME = "HEMEL";
+    public static final String KEY_FIRSTTIME = "WALI";
+
     public static final String PRAYER_TIME_FAJR = "prayer_time_fajr";
+    public static final String SUNRISE_TIME = "sunrise_time";
     public static final String PRAYER_TIME_DUHR = "prayer_time_duhr";
     public static final String PRAYER_TIME_ASR = "prayer_time_asr";
     public static final String PRAYER_TIME_MAGRIB = "prayer_time_magrib";
     public static final String PRAYER_TIME_ISHA = "prayer_time_isha";
+
+    public static final String PRAYER_TIME_FAJR_FIFTEEN = "prayer_time_fajr_fifteen";
+    public static final String PRAYER_TIME_DUHR_THIRTY = "prayer_time_duhr_thirty";
+    public static final String PRAYER_TIME_ASR_THIRTY = "prayer_time_asr_thirty";
+    public static final String PRAYER_TIME_MAGRIB_FIFTEEN = "prayer_time_magrib_fifteen";
+    public static final String PRAYER_TIME_ISHA_THIRTY = "prayer_time_isha_thirty";
+
+    public static final String PRAYER_TIME_FAJR_LAST = "prayer_time_fajr_last";
+    public static final String PRAYER_TIME_DUHR_LAST = "prayer_time_duhr_last";
+    public static final String PRAYER_TIME_ASR_LAST = "prayer_time_asr_last";
+    public static final String PRAYER_TIME_MAGRIB_LAST = "prayer_time_magrib_last";
+    public static final String PRAYER_TIME_ISHA_LAST = "prayer_time_isha_last";
+
     public static final String NEW_DAY = "new_day";
+    public static final String DAY_END = "day_end";
     public static final String NEXT_PRAYER_TIME = "next_prayer_time";
     public static final String IS_ALARM_TIME = "is_alarm_time";
     public static final String ALARM_TIME = "alarm_time";
@@ -63,5 +79,10 @@ public class StaticData {
 
     public static final long FIVE_HOUR = 5*60*60*1000;
     public static final long TEN_MINUTE = 10*60*1000;
+    public static final long FIFTEEN_MINUTE = 15*60*1000;
+    public static final long THIRTY_MINUTE = 30*60*1000;
+
+    public static final String YES_ACTION = "YES_ACTION";
+    public static final String NO_ACTION = "STOP_ACTION";
 
 }

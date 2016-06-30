@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
 
 import lets.pray.muslims.model.Hadith;
@@ -99,7 +100,7 @@ public class ApplicationUtils {
         Log.e("ModifyTime",time+"");
         Calendar calendar = Calendar.getInstance();
         String dateString = calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DAY_OF_MONTH) + " " + time;
-        SimpleDateFormat dtFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
+        SimpleDateFormat dtFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm a", Locale.US);
         Date postDate = formatDate(dateString, dtFormat);
         calendar.setTime(postDate);
         return calendar.getTimeInMillis();

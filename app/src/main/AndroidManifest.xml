@@ -30,7 +30,7 @@
 
         <service
             android:name=".service.NewAlarmService"
-            android:enabled="true" />
+            android:enabled="true"/>
 
         <receiver
             android:name=".reciever.AlarmReceiver"

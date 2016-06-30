@@ -1,14 +1,20 @@
 package lets.pray.muslims;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -170,10 +176,82 @@ public class SplashActivity extends AppCompatActivity {
             ApplicationUtils.saveHadith(helper, context);
         }
 
-        Intent i = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(i);
-        finish();
+        dialog1();
+//        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+//        startActivity(i);
+//        finish();
     }
 
+    public void dialog1(){
+        DisplayMetrics metrics = getResources().getDisplayMetrics();
+        int width = metrics.widthPixels;
+        int height = metrics.heightPixels;
 
+        final Dialog dialog = new Dialog(SplashActivity.this);
+        dialog.setContentView(R.layout.dialog1);
+        dialog.getWindow().setLayout((6 * width) / 7, (3 * height) / 4);
+        dialog.setCanceledOnTouchOutside(false);
+
+        TextView text1 = (TextView) dialog.findViewById(R.id.text1);
+        text1.setText("How many prayer you pray everyday?");
+
+        Button dialog1Accept = (Button) dialog.findViewById(R.id.dialog1Accept);
+        // if decline button is clicked, close the custom dialog
+        dialog1Accept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Close dialog
+                dialog2();
+                dialog.dismiss();
+
+            }
+        });
+        dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        dialog.getWindow().getAttributes().windowAnimations =
+                R.style.dialog_animation;
+        dialog.show();
+    }
+
+    public void dialog2(){
+        DisplayMetrics metrics = getResources().getDisplayMetrics();
+        int width = metrics.widthPixels;
+        int height = metrics.heightPixels;
+
+        final Dialog dialog = new Dialog(SplashActivity.this);
+        dialog.setContentView(R.layout.dialog2);
+        dialog.getWindow().setLayout((6 * width) / 7, (3 * height) / 4);
+        dialog.setCanceledOnTouchOutside(false);
+
+        TextView text1 = (TextView) dialog.findViewById(R.id.text1);
+        text1.setText("Which prayer you want to pray?");
+
+        Button dialog2Accept = (Button) dialog.findViewById(R.id.dialog2Accept);
+        final CheckBox cbFajr=(CheckBox)dialog.findViewById(R.id.cbFajr);
+        final CheckBox cbZuhr=(CheckBox)dialog.findViewById(R.id.cbZuhr);
+        final CheckBox cbAsr=(CheckBox)dialog.findViewById(R.id.cbAsr);
+        final CheckBox cbMaghrib=(CheckBox)dialog.findViewById(R.id.cbMaghrib);
+        final CheckBox cbIsha=(CheckBox)dialog.findViewById(R.id.cbIsha);
+        // if decline button is clicked, close the custom dialog
+        dialog2Accept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Close dialog
+                if(cbFajr.isChecked()==true || cbZuhr.isChecked()==true || cbAsr.isChecked()==true || cbMaghrib.isChecked()==true || cbIsha.isChecked()==true){
+                    dialog.dismiss();
+                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(i);
+                    finish();
+
+                }else {
+                    Toast.makeText(getApplicationContext(), "Check atleast one box",
+                            Toast.LENGTH_SHORT).show();
+
+                }
+
+            }
+        });
+        dialog.getWindow().getAttributes().windowAnimations =
+                R.style.dialog_animation;
+        dialog.show();
+    }
 }

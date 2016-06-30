@@ -1,6 +1,7 @@
 package lets.pray.muslims;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,17 +16,21 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.CheckBox;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import lets.pray.muslims.fragment.PrayertrackingFragment;
 import lets.pray.muslims.model.RamadanSchedule;
 import lets.pray.muslims.utility.ApplicationUtils;
 import lets.pray.muslims.utility.RamadanScheduleMaker;
@@ -64,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         initDrawer();
         initFragmentManager();
         setupDrawerContent();
-//        setDrawerHeaderContent();
+//      setDrawerHeaderContent();
 
     }
 
@@ -240,6 +245,11 @@ public class MainActivity extends AppCompatActivity {
                 isShareApp = false;
                 fragment = RamadanFragment.newInstance();
                 RamadanScheduleMaker ramadanScheduleMaker = new RamadanScheduleMaker(getFazrWaqt(), context);
+                break;
+
+            case R.id.nav_prayerTracker:
+                isShareApp=false;
+                fragment = PrayertrackingFragment.newInstance();
                 break;
 
             case R.id.nav_shareApp:
